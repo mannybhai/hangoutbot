@@ -7,7 +7,7 @@ import plugins
 
 def _initialise(bot):
     plugins.register_handler(_handle_me_action)
-    plugins.register_user_command(["diceroll", "coinflip", "joke", "tod", "wyr", "magicball", "wyr"])
+    plugins.register_user_command(["diceroll", "coinflip", "joke", "tod", "either", "magicball",])
 
 
 def _handle_me_action(bot, event, command):
@@ -98,7 +98,7 @@ def joke(bot, event, *args):
 	yield from bot.coro_send_message(event.conv, _(jokeline))
 	yield from bot.coro_send_message(event.conv, _(punchline))
 
-def wyr(bot, event, *args):
+def either(bot, event, *args):
 	c = requests.session()
 	url = 'http://either.io/'
 	response = c.get(url)
