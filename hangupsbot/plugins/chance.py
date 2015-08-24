@@ -7,7 +7,7 @@ import plugins
 
 def _initialise(bot):
     plugins.register_handler(_handle_me_action)
-    plugins.register_user_command(["diceroll", "coinflip", "joke", "tod", "magicball", "bane"])
+    plugins.register_user_command(["diceroll", "coinflip", "joke", "tod", "magicball", "wyr"])
 
 
 def _handle_me_action(bot, event, command):
@@ -97,3 +97,13 @@ def joke(bot, event, *args):
 	punchline = soup.find("h2", {"class": "part2"}).text
 	yield from bot.coro_send_message(event.conv, _(jokeline))
 	yield from bot.coro_send_message(event.conv, _(punchline))	
+
+def wyr(bot, event, *args):
+	c = requests.session()
+	url = 'http://either.io/'
+	response = c.get(url)
+	soup = BeautifulSoup(response.content)
+	wyr = soup.find("td", {"class": "red overscroll-opt"}).text
+	secondwyr = soup.find("td", {"class": "blue overscroll-opt"}).text
+	wyrfinal = "Would you rather " + wyr + " or " + secondwyr
+	yield from bot.coro_send_message(event.conv, _(wyrfinal)
